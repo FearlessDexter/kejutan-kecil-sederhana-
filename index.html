@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PESAN RAHASIA KEJUTAN! 🤫✨</title>
+    <style>
+        /* CSS UNTUK TAMPILAN */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* GANTI BACKGROUND: Gambar penuh Hello Kitty yang lucu */
+            background-image: url('https://w0.peakpx.com/wallpaper/429/952/HD-wallpaper-hello-kitty-sweet-pink-cartoon-kitty-pink-sweet-cat.jpg'); /* URL gambar contoh, ganti dengan gambar Hello Kitty pilihanmu jika ada */
+            background-size: cover; /* Biar gambar menutupi seluruh layar */
+            background-position: center; /* Pusatkan gambar */
+            background-repeat: no-repeat; /* Jangan ulangi gambar */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Mencegah scrollbar muncul saat hujan emoji/kembang api */
+            color: #333;
+            text-align: center;
+        }
+
+        #overlay {
+            z-index: 20; /* Lebih tinggi dari konten agar tombol terlihat duluan */
+        }
+
+        #konten-utama {
+            background-color: rgba(255, 255, 255, 0.85); /* Sedikit lebih tebal biar teks jelas di atas BG */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px); /* Blur sedikit lebih kuat */
+            z-index: 10; /* Biar konten di atas hujan emoji dan kembang api latar */
+            max-width: 80%;
+            display: none; /* Disembunyikan dulu sebelum tombol diklik */
+            position: relative; /* Untuk elemen kejutan di dalamnya nanti */
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 2.8em; /* Sedikit lebih besar */
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .kata-kata {
+            font-size: 1.3em; /* Sedikit lebih besar */
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .foto-container {
+            width: 220px; /* Sedikit lebih besar */
+            height: 220px;
+            border-radius: 50%; /* Membuat foto jadi bulat */
+            border: 6px solid white; /* Border lebih tebal */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            overflow: hidden;
+            margin: 0 auto 25px auto; /* Centering dan margin bawah */
+        }
+
+        .foto-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Biar foto pas di dalam lingkaran */
+        }
+
+        /* Styling Tombol Mulai */
+        #tombol-mulai {
+            padding: 18px 35px; /* Sedikit lebih besar */
+            font-size: 1.3em;
+            background-color: #ff69b4; /* Pink Hello Kitty yang lebih cerah */
+            color: white;
+            border: 3px solid white; /* Tambah border putih */
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+        }
+
+        #tombol-mulai:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 105, 180, 0.6);
+        }
+
+        /* CSS UNTUK HUJAN EMOJI */
+        .heart {
+            position: fixed;
+            top: -10vh;
+            transform: translateY(0);
+            animation: fall 3s linear forwards;
+            font-size: 24px;
+            z-index: 1; /* Di belakang konten utama, di depan background */
+            user-select: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+            }
+        }
+
+        /* CSS UNTUK ANIMASI KEJUTAN (Kembang Api/Ledakan Kecil) */
+        .confetti {
+            position: absolute; /* Relatif terhadap #konten-utama */
+            width: 10px;
+            height: 10px;
+            background-color: #fff; /* Warna akan diubah via JS */
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 15; /* Di atas konten utama saat meledak */
+        }
+
+        /* Animasi ledakan kembang api */
+        @keyframes fireworkExplosion {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                /* 'translate' akan diatur secara acak oleh JS */
+                transform: translate(var(--tx), var(--ty)) scale(0.1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="overlay">
+        <button id="tombol-mulai">🎁 Buka Kejutan! ✨</button>
+    </div>
+
+    <audio id="laguku" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"> Browser kamu tidak mendukung audio.
+    </audio>
+
+    <div id="konten-utama">
+        <h1>Hi Kamu! ✨🫵🏻</h1>
+        
+        <div class="foto-container">
+            <img src="https://i.pinimg.com/originals/ce/dd/a7/cedda739a489745166299f0e15967008.gif" alt="Animasi Hello Kitty Lucu">
+        </div>
+
+        <div class="kata-kata">
+            <p>Spesial buat kamu, cuma mau ngingetin...</p>
+            <p>Kalau kamu itu <span style="color: #ff1493; font-size: 1.2em;">HEBAT BANGET</span>! 🥳</p>
+            <p>Jangan pernah menyerah ya, tetap semangat! 💪🏻🎀</p>
+            <p>Pertahankan senyum manismu 😊, karena dunia jadi lebih cerah karenanya. ✨</p>
+        </div>
+    </div>
+
+    <script>
+        // JAVASCRIPT UNTUK LOGIKA
+        const tombolMulai = document.getElementById('tombol-mulai');
+        const overlay = document.getElementById('overlay');
+        const kontenUtama = document.getElementById('konten-utama');
+        const lagu = document.getElementById('laguku');
+
+        tombolMulai.addEventListener('click', () => {
+            // 1. Sembunyikan tombol
+            overlay.style.display = 'none';
+            // 2. Munculkan konten
+            kontenUtama.style.display = 'block';
+
+            // 3. Putar lagu
+            lagu.play().catch(error => {
+                console.log("Gagal memutar lagu otomatis, mungkin butuh interaksi user lagi.", error);
+            });
+
+            // 4. Mulai hujan emoji
+            mulaiHujanHeart();
+
+            // 5. TAMBAHKAN KEJUTAN: Ledakan Kembang Api Kecil di awal
+            let jumlahLedakan = 5;
+            for(let i=0; i < jumlahLedakan; i++) {
+                setTimeout(() => {
+                    buatLedakanKembangApi();
+                }, i * 300); // Jeda antar ledakan kecil
+            }
+        });
+
+        // Fungsi membuat hujan emoji
+        function buatHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // Variasi emoji love dan karakter lucu
+            const emojis = ['❤️', '💖', '💗', '💓', '😻', '🌹', '✨', '🎀', '🐱'];
+            heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Posisi acak horizontal
+            heart.style.left = Math.random() * 100 + "vw";
+            
+            // Ukuran acak
+            heart.style.fontSize = Math.random() * 20 + 20 + "px";
+            
+            // Durasi jatuh acak (antara 2s sampai 5s)
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            
+            // Transparansi acak
+            heart.style.opacity = Math.random() * 0.5 + 0.5;
+
+            document.body.appendChild(heart);
+
+            // Hapus element setelah jatuh biar tidak berat
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Jalankan fungsi buatHeart secara terus menerus
+        function mulaiHujanHeart() {
+            // Buat heart baru setiap 250ms (sedikit lebih lambat biar ga terlalu ramai)
+            setInterval(buatHeart, 250);
+        }
+
+        // Fungsi untuk membuat satu ledakan kembang api kecil (confetti explosion)
+        function buatLedakanKembangApi() {
+            const jumlahPartikel = 30; // Jumlah titik per ledakan
+            const warnaConfetti = ['#ff69b4', '#ff1493', '#fff', '#ffd700', '#87ceeb']; // Pink, Emas, Biru muda
+
+            // Tentukan titik pusat ledakan secara acak di dalam konten utama
+            const rect = kontenUtama.getBoundingClientRect();
+            const pusatX = Math.random() * (rect.width * 0.8) + (rect.width * 0.1); // 10% - 90% lebar
+            const pusatY = Math.random() * (rect.height * 0.8) + (rect.height * 0.1); // 10% - 90% tinggi
+
+            for (let i = 0; i < jumlahPartikel; i++) {
+                const partikel = document.createElement('div');
+                partikel.classList.add('confetti');
+                
+                // Warna acak
+                partikel.style.backgroundColor = warnaConfetti[Math.floor(Math.random() * warnaConfetti.length)];
+                
+                // Posisi awal di pusat ledakan
+                partikel.style.left = pusatX + 'px';
+                partikel.style.top = pusatY + 'px';
+
+                // Tentukan arah ledakan acak menggunakan CSS Variabel
+                const sudut = Math.random() * Math.PI * 2; // Sudut acak 0 - 360 derajat
+                const jarak = Math.random() * 100 + 50; // Jarak ledakan acak
+                const tx = Math.cos(sudut) * jarak + 'px';
+                const ty = Math.sin(sudut) * jarak + 'px';
+                
+                partikel.style.setProperty('--tx', tx);
+                partikel.style.setProperty('--ty', ty);
+
+                // Jalankan animasi
+                const durasi = Math.random() * 0.5 + 0.8; // 0.8s - 1.3s
+                partikel.style.animation = `fireworkExplosion ${durasi}s ease-out forwards`;
+
+                kontenUtama.appendChild(partikel);
+
+                // Hapus partikel setelah animasi selesai
+                setTimeout(() => {
+                    partikel.remove();
+                }, durasi * 1000);
+            }
+        }
+    </script>
+</body>
+</html>
+
